@@ -1,0 +1,25 @@
+spring:
+  kafka:
+    bootstrap-servers: 10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      auto-offset-reset: earliest
+
+    topics:
+      input:
+        name: streams-plaintext-input
+        partitions: 1
+        replicas: 1
+
+      output:
+        name: streams-wordcount-output
+        partitions: 1
+        replicas: 1
+
+
