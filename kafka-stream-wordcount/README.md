@@ -1,7 +1,11 @@
 # KafkaStreams - WordCount DEMO
 
-* https://docs.confluent.io/current/streams/quickstart.html 를 참조해서 REST API로 동작 확인할 수 있도록 구현함
+* https://kafka.apache.org/26/documentation/streams/quickstart 를 참조해서 REST API로 동작 확인할 수 있도록 구현함
 
+* KTable 에 key,value 저장
+  * key = word
+  * value = count
+* KStream 은 downstream
 
 ## Producer,Consumer 설정
 * AutoConfiguration 으로 producer - KafkaTemplate, consumer - ConsumerFactory 설정
@@ -47,8 +51,10 @@ spring:
 				.count();       // 4
 
 		counts.toStream().to(outputTopic, Produced.with(Serdes.String(), Serdes.Long()));
-
-		return new KafkaStreams(builder.build(), kafkaStreamConfig());
+        
+        final Topology topology = builder.build();
+		System.out.println("TOPOLOGY: " + topology.describe()); // topology 확인
+		return new KafkaStreams(topology, kafkaStreamConfig());
 	}
 ```
 
@@ -57,6 +63,40 @@ spring:
 > 1. WORD 단위로 grouping
 > 1. 그룹 카운트
 
+
+* Topology describe 결과
+```shell script
+Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [streams-plaintext-input])
+      --> KSTREAM-FLATMAPVALUES-0000000001
+    Processor: KSTREAM-FLATMAPVALUES-0000000001 (stores: [])
+      --> KSTREAM-PEEK-0000000002
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-PEEK-0000000002 (stores: [])
+      --> KSTREAM-KEY-SELECT-0000000003
+      <-- KSTREAM-FLATMAPVALUES-0000000001
+    Processor: KSTREAM-KEY-SELECT-0000000003 (stores: [])
+      --> KSTREAM-FILTER-0000000007
+      <-- KSTREAM-PEEK-0000000002
+    Processor: KSTREAM-FILTER-0000000007 (stores: [])
+      --> KSTREAM-SINK-0000000006
+      <-- KSTREAM-KEY-SELECT-0000000003
+    Sink: KSTREAM-SINK-0000000006 (topic: KSTREAM-AGGREGATE-STATE-STORE-0000000004-repartition)
+      <-- KSTREAM-FILTER-0000000007
+
+  Sub-topology: 1
+    Source: KSTREAM-SOURCE-0000000008 (topics: [KSTREAM-AGGREGATE-STATE-STORE-0000000004-repartition])
+      --> KSTREAM-AGGREGATE-0000000005
+    Processor: KSTREAM-AGGREGATE-0000000005 (stores: [KSTREAM-AGGREGATE-STATE-STORE-0000000004])
+      --> KTABLE-TOSTREAM-0000000009
+      <-- KSTREAM-SOURCE-0000000008
+    Processor: KTABLE-TOSTREAM-0000000009 (stores: [])
+      --> KSTREAM-SINK-0000000010
+      <-- KSTREAM-AGGREGATE-0000000005
+    Sink: KSTREAM-SINK-0000000010 (topic: streams-wordcount-output)
+      <-- KTABLE-TOSTREAM-0000000009
+```
 
 ## KafkaStreams 시작/종료
 
