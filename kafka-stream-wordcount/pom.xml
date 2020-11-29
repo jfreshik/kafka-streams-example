@@ -8,7 +8,7 @@
 		<version>2.4.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.chelab.kafka</groupId>
+	<groupId>com.example.kafka</groupId>
 	<artifactId>kafka-stream-wordcount</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>kafka stream wordcount</name>

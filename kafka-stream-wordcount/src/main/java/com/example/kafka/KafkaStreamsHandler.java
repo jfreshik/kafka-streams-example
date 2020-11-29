@@ -1,4 +1,4 @@
-package com.chelab.kafka;
+package com.example.kafka;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.streams.KafkaStreams;

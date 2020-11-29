@@ -1,8 +1,8 @@
-package com.chelab.kafka;
+package com.example.kafka;
 
 public class KafkaServerProperties {
 
-    public static final String BOOTSTRAP_SERVERS = "10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092";
+    public static final String BOOTSTRAP_SERVERS = "127.0.0.1:9092";
 
     public static final String INPUT_TOPIC = "streams-plaintext-input";
 

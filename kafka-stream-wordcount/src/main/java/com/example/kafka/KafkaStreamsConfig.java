@@ -1,4 +1,4 @@
-package com.chelab.kafka;
+package com.example.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;

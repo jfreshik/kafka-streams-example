@@ -1,6 +1,15 @@
 # Kafka Streams use cases
 
+
 * https://kafka.apache.org/26/documentation/streams/tutorial
+* Kafka Stream 라이브러리만 이용한 stream 샘플
+```xml
+<dependency>
+    <groupId>org.apache.kafka</groupId>
+    <artifactId>kafka-streams</artifactId>
+    <version>2.6.0</version>
+</dependency>
+```
 
 ## Apps
 * Pipe: stream bypass
@@ -18,7 +27,7 @@ builder.stream(KafkaServerProperties.INPUT_TOPIC).to(KafkaServerProperties.PIPE_
 
 * stream topology
 ```shell script
-[com.chelab.kafka.Pipe.main()] INFO com.chelab.kafka.Pipe - Topologies:
+[com.example.kafka.Pipe.main()] INFO com.example.kafka.Pipe - Topologies:
    Sub-topology: 0
     Source: KSTREAM-SOURCE-0000000000 (topics: [streams-plaintext-input])
       --> KSTREAM-SINK-0000000001
@@ -38,7 +47,7 @@ source.flatMapValues(value -> Arrays.asList(value.split("\\W+")))
 
 * stream topology
 ```shell script
-[com.chelab.kafka.LineSplit.main()] INFO com.chelab.kafka.LineSplit - Topologies:
+[com.example.kafka.LineSplit.main()] INFO com.example.kafka.LineSplit - Topologies:
    Sub-topology: 0
     Source: KSTREAM-SOURCE-0000000000 (topics: [streams-plaintext-input])
       --> KSTREAM-FLATMAPVALUES-0000000001
@@ -65,7 +74,7 @@ source.flatMapValues(value -> Arrays.asList(value.toLowerCase(Locale.getDefault(
 
 * stream toplogy
 ```shell script
-[com.chelab.kafka.LineSplit.main()] INFO com.chelab.kafka.LineSplit - Topologies:
+[com.example.kafka.LineSplit.main()] INFO com.example.kafka.LineSplit - Topologies:
    Sub-topology: 0
     Source: KSTREAM-SOURCE-0000000000 (topics: [streams-plaintext-input])
       --> KSTREAM-FLATMAPVALUES-0000000001
@@ -84,11 +93,11 @@ source.flatMapValues(value -> Arrays.asList(value.toLowerCase(Locale.getDefault(
 $ mvnw clean package
 
 # Pipe App
-$ mvnw exec:java -Dexec.mainClass=com.chelab.kafka.Pipe
+$ mvnw exec:java -Dexec.mainClass=com.example.kafka.Pipe
 
 # LineSplit App
-$ mvnw exec:java -Dexec.mainClass=com.chelab.kafka.LineSplit
+$ mvnw exec:java -Dexec.mainClass=com.example.kafka.LineSplit
 
 # WordCount App
-$ mvnw exec:java -Dexec.mainClass=com.chelab.kafka.WordCount
+$ mvnw exec:java -Dexec.mainClass=com.example.kafka.WordCount
 ```

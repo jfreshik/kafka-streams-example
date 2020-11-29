@@ -1,4 +1,4 @@
-package com.chelab.kafka;
+package com.example.kafka;
 
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;

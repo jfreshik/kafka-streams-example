@@ -12,7 +12,7 @@
 ```yaml
 spring:
   kafka:
-    bootstrap-servers: 10.6.120.56:9092,10.6.120.121:9092,10.6.120.67:9092
+    bootstrap-servers: 127.0.0.1:9092
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -162,7 +162,7 @@ $ curl -X POST localhost:8080/streams/off
 ```
 
 ```shell script
-$ curl -X POST 'localhost:8080/streams/input?words=hello world'
+$ curl -X POST 'localhost:8080/streams/input' --data-urlencode "words=hello world"
 ```
 
 ## WordCount 결과 consume

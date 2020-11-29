@@ -1,4 +1,4 @@
-package com.chelab.kafka;
+package com.example.kafka;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
